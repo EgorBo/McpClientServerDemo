@@ -7,7 +7,7 @@ The mcp.json roughly matches VSCode's [settings.json](https://code.visualstudio.
   * Extract youtube subtitles
 
 **Client** consumes the following MCP servers:
-  * Yyoutube subtitles extractor ^
+  * Youtube subtitles extractor ^
   * Yahoo Finance server
   * Airbnb server
   * Hacker News
