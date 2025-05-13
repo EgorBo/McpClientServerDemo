@@ -12,6 +12,7 @@ The mcp.json roughly matches VSCode's [settings.json](https://code.visualstudio.
   * Airbnb server
   * Hacker News
   * Simple Calculator
+(just a bunch of random public cloud MCP servers for the demo purposes)
 
 Prompt example:
 ```
