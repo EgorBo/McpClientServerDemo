@@ -6,7 +6,7 @@ The mcp.json roughly matches VSCode's [settings.json](https://code.visualstudio.
 **Server** (aspnet Minimal API, SSE) defines the following MCP servers:
   * Youtube subtitles extractor
 
-**Client** (Console app, OpenAI client) consumes the following MCP servers:
+**Client** (Console app, OpenAI client) consumes the following MCP servers defined in `mcp.json`:
   * Youtube subtitles extractor ^
   * Yahoo Finance server
   * Airbnb server
