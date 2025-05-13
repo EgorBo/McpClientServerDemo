@@ -34,7 +34,7 @@ if (mcpConfig?.Mcp?.Servers is null)
 List<IMcpClient> clients = new();
 foreach ((string serverName, Server server) in mcpConfig.Mcp.Servers)
 {
-    Console.WriteLine($"Adding server '{serverName}' of type {server.ActualType}");
+    Console.WriteLine($"Adding server '{serverName}' [{server.ActualType.ToString().ToLower()}]...");
     // TODO: handle Inputs.
     switch (server.ActualType)
     {
@@ -75,18 +75,26 @@ List<McpClientTool> allTools = new();
 foreach (var client in clients)
     allTools.AddRange(await client.ListToolsAsync());
 
-
 string prompt = "Short explanation of the problem described in https://www.youtube.com/watch?v=iSNsgj1OCLA. " +
                 "Also, print the current price of MSFT stock";
 
-Console.WriteLine($"\n\nPrompt: {prompt}\nAnswer:\n");
+Console.WriteLine($"\n\nPrompt: {prompt}\n\nAnswer: ");
 
 var response = chatClient.GetStreamingResponseAsync(prompt, new() { Tools = [.. allTools] });
 await foreach (var update in response)
 {
-    if (update.Contents.Count > 0 && 
-        update.Contents[0] is TextContent textContent)
-        Console.Write(textContent.Text);
+    foreach (var updateContent in update.Contents)
+    {
+        switch (updateContent)
+        {
+            case TextContent textContent:
+                Console.Write(textContent.Text);
+                break;
+            case FunctionCallContent funcCall:
+                Console.Write($"\n ** calling func {funcCall.Name}(...) **\n");
+                break;
+        }
+    }
 }
 
 Console.WriteLine("\n\nDone. Press any key to quit...");
